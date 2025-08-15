@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Champaa Jii 🎂💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink:#ffc1d6;
+      --pink-deep:#ff85a2;
+      --pink-bright:#ff4fa0;
+      --rose:#ffe6ee;
+      --rose-2:#ffe1f0;
+      --text:#4a2b36;
+      --white:#ffffff;
+      --shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',sans-serif;color:var(--text);scroll-behavior:smooth;background:var(--rose)}
+
+    /* Global section layout */
+    section{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:80px 18px;overflow:hidden}
+    .container{width:min(1000px,92vw);margin:auto;position:relative}
+
+    /* Floating hearts background (reusable) */
+    .hearts-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+    .heart{position:absolute;width:18px;height:18px;background:var(--pink-bright);transform:rotate(45deg);opacity:.3;animation:floatUp linear infinite}
+    .heart::before,.heart::after{content:"";position:absolute;width:18px;height:18px;background:inherit;border-radius:50%}
+    .heart::before{left:-9px}
+    .heart::after{top:-9px}
+    @keyframes floatUp{0%{transform:translateY(15vh) rotate(45deg);opacity:0}10%{opacity:.5}100%{transform:translateY(-110vh) rotate(45deg);opacity:0}}
+
+    /* Reveal + zoom on scroll */
+    .reveal{opacity:0;transform:translateY(28px) scale(.98);filter:blur(2px);transition:opacity .8s ease, transform .8s ease, filter .8s ease}
+    .reveal.show{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+
+    /* Buttons */
+    .btn{appearance:none;border:none;background:linear-gradient(135deg,var(--pink-deep),var(--pink-bright));color:#fff;padding:14px 22px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .2s ease}
+    .btn:hover{transform:translateY(-2px)}
+
+    /* Intro */
+    #intro{background:linear-gradient(180deg,#fff0f6, var(--rose-2))}
+    .title{font-family:'Parisienne',cursive;font-size:clamp(42px,10vw,120px);line-height:1.02;margin:0;text-align:center;background:linear-gradient(135deg,var(--pink-bright),#ff7eb3,#ffa3d0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 24px rgba(255,79,160,.25))}
+    .subtitle{text-align:center;font-weight:600;margin:16px auto 28px;font-size:clamp(16px,3.5vw,22px);color:#7a4a5a}
+
+    /* Wish page */
+    #wish{background:linear-gradient(180deg,#ffe1ef,#ffd3ea)}
+    .card{background:rgba(255,255,255,.9);backdrop-filter:blur(6px);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+    .card h2{margin:0 0 12px;font-size:28px;color:#a43b65}
+    .message{white-space:pre-wrap;line-height:1.7}
+
+    /* Story trigger section */
+    #story{background:linear-gradient(180deg,#ffeaf3,#ffd6e8)}
+    .story-wrap{display:grid;gap:16px;place-items:center;text-align:center}
+    .story-wrap h2{font-size:34px;margin:0;color:#b33d6e}
+
+    /* Heart button */
+    .heart-btn{position:relative;width:72px;height:64px;transform:rotate(45deg);cursor:pointer}
+    .heart-btn i,.heart-btn i::before,.heart-btn i::after{content:"";position:absolute;inset:0;background:var(--pink-bright);border-radius:10px;box-shadow:var(--shadow)}
+    .heart-btn i::before{left:-50%;width:100%;height:100%;border-radius:50%}
+    .heart-btn i::after{top:-50%;width:100%;height:100%;border-radius:50%}
+    .heart-btn:hover{transform:rotate(45deg) scale(1.04)}
+
+    /* Modal (heart-themed) */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal-backdrop.show{display:flex}
+    .heart-shell{position:relative;width:min(920px,94vw);height:min(680px,90vh)}
+    /* Big decorative heart */
+    .heart-deco{position:absolute;inset:0;margin:auto;width:78%;height:78%;transform:translateY(2%) rotate(45deg)}
+    .heart-deco::before,.heart-deco::after{content:"";position:absolute;background:var(--pink);}
+    .heart-deco{background:var(--pink);border-radius:12px;box-shadow:0 20px 50px rgba(255,79,160,.25)}
+    .heart-deco::before{left:-50%;top:0;width:100%;height:100%;border-radius:50%}
+    .heart-deco::after{left:0;top:-50%;width:100%;height:100%;border-radius:50%}
+    /* Content panel sitting over the heart */
+    .heart-panel{position:absolute;inset:8% 6%;background:#fff6fa;border-radius:22px;padding:18px 16px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .heart-title{font-family:'Parisienne',cursive;font-size:36px;margin:0 0 8px;color:#b33d6e;text-align:center}
+    .heart-scroll{flex:1;overflow:auto;padding:0 6px}
+    .story{white-space:pre-wrap;line-height:1.65}
+
+    /* Promise page with balloons */
+    #promise{background:linear-gradient(180deg,#ffeaf5,#ffdff1)}
+    .promise-card{background:#fff;border-radius:26px;padding:28px;box-shadow:var(--shadow);text-align:center}
+    .promise-text{white-space:pre-wrap;font-size:20px;line-height:1.7}
+    .balloon{position:absolute;bottom:-120px;width:60px;height:80px;border-radius:50% 50% 45% 55%;background:var(--pink-deep);animation:rise 12s linear infinite;box-shadow:0 8px 18px rgba(255,133,162,.35)}
+    .balloon::after{content:"";position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:2px;height:28px;background:#caa}
+    .balloon:nth-child(2){left:15%;animation-duration:14s;animation-delay:1s}
+    .balloon:nth-child(3){left:30%;animation-duration:11s;animation-delay:2s}
+    .balloon:nth-child(4){left:50%;animation-duration:13s;animation-delay:.5s}
+    .balloon:nth-child(5){left:70%;animation-duration:10s;animation-delay:1.8s}
+    .balloon:nth-child(6){left:85%;animation-duration:16s;animation-delay:.2s}
+    @keyframes rise{0%{transform:translateY(0) scale(.95)}100%{transform:translateY(-120vh) scale(1)}}  
+
+/* Final page */
+    #final{background:radial-gradient(1000px 600px at 50% 10%, #ffd2ea, #ffb6db, #ff87c7)}
+    .final-card{background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border-radius:28px;padding:26px;box-shadow:var(--shadow)}
+    .final-card h2{margin:0 0 10px;color:#a43b65}
+    .final-text{white-space:pre-wrap;line-height:1.7}
+
+    /* Sticky nav hint */
+    .hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.9);padding:8px 14px;border-radius:999px;box-shadow:var(--shadow);font-size:13px;z-index:30}
+
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <!-- Intro -->
+  <section id="intro">
+    <div class="hearts-bg" aria-hidden="true"></div>
+    <div class="container center">
+      <h1 class="title reveal">HAPPY BIRTHDAY CHAMPAA JII</h1>
+      <p class="subtitle reveal">Made with all my love — by Aryan 💖</p>
+      <button class="btn reveal" onclick="document.getElementById('wish').scrollIntoView({behavior:'smooth'})">Start the surprise →</button>
+    </div>
+  </section>
+
+  <!-- Birthday Wish -->
+  <section id="wish">
+    <div class="hearts-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="card reveal">
+        <h2>Birthday Message</h2>
+        <div class="message">
+Oyee Champaa Jii,
+
+Happy Birthday, my little Butki!🎉🎈 Today is all about you, and I just want you to feel how incredibly special you are. Not just because it’s your birthday, but because you exist, and you make my world brighter, softer, and so much happier every single day🫶🏻🥰. I know you sometimes doubt yourself, think you’re not the prettiest, or worry that I might have better options, but none of that even matters😏. To me, you are perfect in every possible way. Every little thing about you, even the things you think are flaws, makes me fall harder for you every single day❣.
+
+I love your voice, Champaa Jii—truly, it’s my favorite thing in the entire world. When you sing, when you laugh, when you even just whisper, my world pauses. It’s just you, your laugh, your quirks, and your heart that’s so big it fills every part of me. I love your tiny jealous moments, your possessive moods, your anger—even those moments when you’re mad at me, because they show how much you care. I love how passionate you are about everything, how fiercely you feel, how unapologetically you are. Every little thing you do, even the things you think are silly or imperfect, makes me smile without even realizing it.
+
+I love your eyes, your smile, your sleepy texts, your gossip sessions, your stubbornness, and everything in between. I love how you think, how you care, how you worry. Even your insecurities are beautiful to me because they’re a part of you, and being human with you, sharing life with you, is my favorite thing ever. You’re not just someone I like; you’re someone I love deeply, someone who’s become my home, my comfort, my happiness, my safe place, my favorite person in the whole world🥰.
+
+Even though we’re far apart, I feel you every single day. Every message, every voice note, every little memory, every late-night chat—I keep them all close to my heart. I think about you when I wake up, when I eat, when I laugh at something random. I miss you so much, Champaa Jii. But even distance can’t change how much I adore you, how much I need you, and how much you mean to me.
+
+I promise to always be here for you, Champaa Jii. To make you laugh when you’re down, to hold you close when we’re together, to protect your heart and make it feel safe, even when miles separate us. I promise to love every part of you—every flaw, every imperfection, every silly little thing, every late-night thought, every jealousy, every angry little tantrum. I promise to never take you for granted, to celebrate you not just today, but every single day of our lives. I promise to send you hugs, kisses, silly messages, voice notes, and little surprises just to make you smile😃.
+
+You are my little star, my sunshine, my Butki, my Champaa Jii, my everything. I hope this birthday brings you all the happiness, all the laughter, and all the love in the world—wrapped up in the warmth of my heart, just for you. I hope every dream you have comes true, every smile you give comes back a hundredfold, and every moment is as magical as the way you make me feel every single day✨.
+
+I love you more than words can ever show, more than the stars love the night sky, more than my heart can even carry. You are mine, and I am yours, and nothing—not distance, not time, not anything—can ever change that. Always remember, Champaa Jii, that you are loved, cherished, and adored—endlessly, completely, and forever💋.
+
+Happy Birthday, my little Butki. I can’t wait to see your smile, hear your voice, and wrap you in the biggest hug when we meet . Until then, know that I am thinking of you every second, missing you every minute, and loving you more than ever. You are my everything, Champaa Jii—today, tomorrow, and forever.
+
+Always yours,
+Your bbg 😇
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Love Story trigger section -->
+  <section id="story">
+    <div class="hearts-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="story-wrap reveal">
+        <h2>Open Our Love Story</h2>
+        <div class="heart-btn" id="openStory" title="Open"><i></i></div>
+        <p style="margin:10px 0 0;color:#7a4a5a">Baby pink vibes, hearts and gentle animations — just for you 💞</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Heart-Themed Love Story Modal -->
+  <div class="modal-backdrop" id="storyModal" role="dialog" aria-modal="true" aria-label="Love Story">
+    <div class="heart-shell reveal show" style="transition:transform .5s ease, opacity .5s ease; transform:scale(.98);">
+      <div class="heart-deco"></div>
+      <div class="heart-panel">
+        <h3 class="heart-title">Our Story — For Daisy 💋</h3>
+        <div class="heart-scroll">
+          <div class="story">
+Chapter 1: A Winter Entry (14 November)
+
+It was a cold, quiet November evening. The breeze carried winter’s soft sting, and I was lost in my usual digital world, leading my clan on Instagram — a world of banning groups and fiery group chats. Then, she entered — Daisy. Just another girl, I thought. Just another name in the mix of the many.
+
+We had short, casual conversations in group chats over the next couple of weeks. Nothing unusual. No spark. Just banter, laughs, and a sense of presence.
+
+But everything changed on 28 November.
+
+It was past midnight. I was casually scrolling when I saw a note she had posted. Maybe I was bored. Maybe I was teasing. But I replied.
+
+It was unintentional...
+
+But that message... turned out to be the most important moment of my life. 💌
+
+She replied immediately. That night, our first real conversation began — in direct inbox.
+
+Chapter 2: 3 AM Conversations and Soft Hearts
+
+After that night, we started talking daily. Not for long hours at first, but enough to stay connected. Slowly, those chats turned into conversations that stretched through the night — from 8pm to 3am in those shivering winter nights.
+
+I didn’t know what was happening. I wasn’t in love yet... but I could feel something blooming. Something gentle. Familiar.
+
+Maybe it was her. Maybe she had already fallen.
+
+Then came New Year’s. 🌟
+
+Exactly at 12am, I received her message — long and warm. She spoke about how I listened, how I never judged, how she trusted me despite her trust issues. She ended the message with "Love you... but as a friend."
+
+But it didn’t feel like just friendship. 🥺
+
+From that point... I knew. I knew she had fallen. And I was quiet... watching it all.
+
+Chapter 3: Her Little Habits and My Quiet Observations
+
+Our conversations kept growing. She loved being called "Leader Ji", and although it was silly, it was cute. 🥰
+
+But one day, a silly mistake on my end — flirting with another girl — led to a fight. She blocked me. And I... deactivated all my accounts. I was done. Or so I thought.
+
+I expected her to chase me. And she did.
+
+She mentioned my accounts in the girls' division chat, asking if I was visible. She was trying to figure out if I had blocked her. And then... she confessed to the girls. That she liked me.
+
+My friend sent me a screen recording. I finally had proof. Proof of what I already knew.
+
+Chapter 4: WhatsApp, Secrets, and Soft Surrenders
+
+We had cut off contact, but I had once given her my phone number.
+
+And she used it.
+
+A text from her came on WhatsApp, urging me to come back. I refused, but I couldn’t say no to her for long.
+
+I created a new, private Instagram account — just for her.
+
+Just followed her. Just to calm her jealousy, her insecurities, her fears.
+
+And somewhere in that space...
+
+I started falling.
+
+It was late January, heading into February. Board exams loomed. But still, we would talk until 3am, night after night.
+
+Chapter 5: The Confession at 1:30AM
+
+One night, around 1:30am, I sent her the screen recording — the one where she had confessed about liking me.
+
+She went silent.
+
+Then typed: “Good night.”
+
+She was scared. That I would judge her. That the friendship would die.
+
+The next morning, she said: "Block me. I can’t block you, so you have to."
+
+But I stayed. I didn’t go anywhere.
+
+That very night, after a few questions, I said it:
+
+“You’re accepted.”
+
+And in that moment, I felt her smile through the screen. 😊
+
+It was the end of February.
+
+We confessed.
+
+We promised to stay — forever. ♾
+
+Chapter 6: Love in Every Note and Nonsense
+
+Now it’s July. 💞
+
+We talk every day. We share every detail of our lives. She sings for me, and when she sings, my world just stops. She’s a wannabe singer, but to me, she's already a star.
+
+She doesn’t believe she’s the prettiest. She thinks I have better options. But she never understands...
+
+I’m not here because she’s the best option.
+
+I’m here because I love her.
+
+Because it’s her voice.
+
+Her eyes.
+
+Her weird little gossips.
+
+Her anger.
+
+Her jealous tantrums.
+
+Her scars.
+
+Everything.
+
+Love doesn’t need the most perfect face — it just needs the right soul.
+
+And she’s mine. 🥹❤
+
+Forever. ♾
+
+---
+
+Epilogue: For Daisy 💋
+
+From a silly clan on a cold November night… to a deep, endless bond that no one can break — this is our love story.
+
+Daisy, you made me feel things I never thought I would. I may have taken time to fall, but once I did... I knew there’s no going back.
+
+You’re not just a part of my life — you’re the reason I want to keep living it.
+
+And this story?
+
+It’s only the beginning... 💞
+
+Love,
+
+Aryan
+          </div>
+        </div>
+        <div class="center" style="margin-top:10px"><button class="btn" id="closeStory">Close</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promise Page -->
+  <section id="promise">
+    <div class="hearts-bg" aria-hidden="true"></div>
+    <!-- Balloons floating -->
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+
+    <div class="container">
+      <div class="promise-card reveal">
+        <h2 class="center" style="font-family: 'Parisienne', cursive; font-size:40px; color:#b33d6e; margin-top:0;">A Promise, Forever</h2>
+        <div class="promise-text">
+Champaa jii....now matter what the situations are....I promise I'll always be yours.. ever and ever and ever... forever ♾✨
+
+_____________________________________________________________
+
+Love you soooooo muchh🥺
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Page -->
+  <section id="final">
+    <div class="hearts-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="final-card reveal">
+        <h2>From My Heart to Yours</h2>
+        <div class="final-text">
+To kaisa laga mera surprise meri swarg se utri...🙂🙂
+Swarg se utri Sundar....nhi .. Swarg se utri kokila kanta 😑 no.... kokila kanthe apsara 🗿👍🏻....I wish mai tere saath hota ye special day celebrate krne ke liye...but distance 😭....I know tere liye utna special day nhi hai ye...but trust me mere liye hai ....this is the only day in past 2 years which made me excited 😋....and sorry for itnii saarii english 😭 Hindi me mai feelings express hi nhi kr paa rha tha ....I hope you'll enjoy your day....and life (with me 👺 🗡)
+And.... forgive me ...agar kuch galat likha ho to ... after all I'm your baby 🥺🤌🏻
+I'm sending hundreds of virtual hugs and kisses for you 💋
+
+
+Loveeee youuuuu (bhot sara🌚🫴🏻)
+        </div>
+        <div class="center" style="margin-top:14px">
+          <button class="btn" id="openThanks">One more thing… 💌</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Thank You Popup -->
+  <div class="modal-backdrop" id="thanksModal" role="dialog" aria-modal="true" aria-label="Thank You">
+    <div class="heart-shell">
+      <div class="heart-deco"></div>
+      <div class="heart-panel">
+        <h3 class="heart-title">For You, My Baby 🎈✨</h3>
+        <div class="heart-scroll">
+          <div class="story center">
+thank you for coming in my life.... loving me...and everything....
+Once again happy birthday babyy🎈✨
+          </div>
+        </div>
+        <div class="center" style="margin-top:10px"><button class="btn" id="closeThanks">Close</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Scroll to explore • Tap the heart to open popups</div>
+
+  <script>
+    // Seed floating hearts safely
+    function seedHearts(section){
+      const bg = section.querySelector('.hearts-bg');
+      if(!bg) return;
+      const count = 22; // number of hearts per section
+      for(let i=0;i<count;i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        const size = Math.random()*18 + 10; // 10 - 28
+        h.style.width = size + 'px';
+        h.style.height = size + 'px';
+        h.style.left = Math.random()*100 + '%';
+        h.style.animationDuration = (Math.random()*6 + 6) + 's';
+        h.style.animationDelay = (Math.random()*6) + 's';
+        h.style.opacity = (Math.random()*0.45 + 0.15).toFixed(2);
+        bg.appendChild(h);
+      }
+    }
+    document.querySelectorAll('section').forEach(seedHearts);
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Modals
+    const storyBtn   = document.getElementById('openStory');
+    const storyModal = document.getElementById('storyModal');
+    const closeStory = document.getElementById('closeStory');
+    if(storyBtn) storyBtn.addEventListener('click',()=>{ storyModal.classList.add('show'); });
+    if(storyModal) storyModal.addEventListener('click',(e)=>{ if(e.target===storyModal) storyModal.classList.remove('show'); });
+    if(closeStory) closeStory.addEventListener('click',()=> storyModal.classList.remove('show'));
+
+    const thanksBtn   = document.getElementById('openThanks');
+    const thanksModal = document.getElementById('thanksModal');
+    const closeThanks = document.getElementById('closeThanks');
+    if(thanksBtn) thanksBtn.addEventListener('click',()=>{ thanksModal.classList.add('show'); });
+    if(thanksModal) thanksModal.addEventListener('click',(e)=>{ if(e.target===thanksModal) thanksModal.classList.remove('show'); });
+    if(closeThanks) closeThanks.addEventListener('click',()=> thanksModal.classList.remove('show'));
+
+    // Auto show final popup when final section is mostly visible
+    const finalSection = document.getElementById('final');
+    if(finalSection){
+      const finalObs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ setTimeout(()=>{ if(thanksModal) thanksModal.classList.add('show'); }, 1400); finalObs.disconnect(); }
+        })
+      },{threshold:.6});
+      finalObs.observe(finalSection);
+    }
+  </script>
+</body>
+</html>                                                                                               
